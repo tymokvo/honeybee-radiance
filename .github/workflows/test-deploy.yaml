@@ -15,4 +15,6 @@ jobs:
         curl -L "https://ladybug-tools-releases.nyc3.digitaloceanspaces.com/Radiance_${radiance_version}_Linux.zip" --output radiance.zip
         unzip -p radiance.zip | tar xz
 
+        ls
+
         docker build -t hbr:latest . --build-arg radiance_version=${radiance_version}
