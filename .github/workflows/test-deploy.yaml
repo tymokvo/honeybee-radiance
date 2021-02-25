@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+    - test-deploy
+
+jobs:
+
+  test-deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-docker-build
+      run: |
+        export radiance_version='5.3a.fc2a2610'
+        curl -L "https://ladybug-tools-releases.nyc3.digitaloceanspaces.com/Radiance_${radiance_version}_Linux.zip" --output radiance.zip
+        unzip -p radiance.zip | tar xz
+
+        docker build -t hbr:latest . --build-arg radiance_version=${radiance_version}
